@@ -8,7 +8,7 @@ class PurchaseLog extends React.Component {
       name: "",
       price: 0,
       date: Date.now(),
-      category: ""
+      category: "restaurants/bars"
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -26,6 +26,7 @@ class PurchaseLog extends React.Component {
   //handles change to drop down select element
   handleSelect(event) {
     this.setState({ category: event.target.value });
+    console.log(this.state);
   }
 
   render() {
@@ -48,7 +49,7 @@ class PurchaseLog extends React.Component {
             id="category"
             name="category"
           >
-            <option value="restaurant/bar">restaurant/bar</option>
+            <option value="restaurants/bars">restaurants/bars</option>
             <option value="groceries">groceries</option>
             <option value="transportation">transportation</option>
             <option value="recreation">recreation</option>
