@@ -12,7 +12,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       income: 0,
-      budget: 0,
+      budgetTotal: 0,
       totalPurchases: 0,
       moneyLeft: 0,
       expensesArray: []
@@ -24,17 +24,38 @@ class App extends React.Component {
     this.getPurchasesTotal = this.getPurchasesTotal.bind(this);
     this.getPurchasesArr = this.getPurchasesArr.bind(this);
   }
+
   componentDidMount() {
-    this.getPurchasesTotal().then(res => {
-      if (res.data.amount) {
-        this.setState({ totalPurchases: res.data[0].amount });
-        console.log(this.state);
-      }
-    });
+    //gets the sum of all purchases made, then
+    //gets the budget obj from db, computesr total budget, then
+    //subtracts total purchases from budget to computer money leftover
+
+    this.getPurchasesTotal()
+      .then(res => {
+        console.log(res.data.length);
+        if (res.data) {
+          this.setState({ totalPurchases: res.data[0].amount });
+        }
+      })
+      .then(() => {
+        this.getBudget()
+          .then(res => {
+            let computeedBudget = res.data[0].income - res.data[0].bills;
+            this.setState({ budgetTotal: computeedBudget });
+          })
+          .then(() => {
+            let moneyLeft = this.state.budgetTotal - this.state.totalPurchases;
+            this.setState({ moneyLeft: moneyLeft });
+            console.log(this.state);
+          });
+      });
+
     this.getPurchasesArr().then(res =>
       this.setState({ expensesArray: res.data })
     );
   }
+
+  //gets an array of the purchase history
   getPurchasesArr() {
     return Axios.get("/log");
   }
@@ -42,9 +63,15 @@ class App extends React.Component {
   getPurchasesTotal() {
     return Axios.get("/log/expenses");
   }
+  //get request for budget
+  getBudget() {
+    return Axios.get("/budget");
+  }
 
   // Axios.get('/budget').then(data => console.log('test'));
   handleChange(event) {
+    event.preventDefault();
+    console.log(event.target.value);
     this.setState({ income: event.target.value });
   }
 
@@ -86,10 +113,10 @@ class App extends React.Component {
             <input
               type="number"
               value={this.state.value}
-              onChange={this.handleChange}
+              onChange={event => this.handleChange(event)}
             />
           </label>
-          <input type="submit" value="Submit" />
+          {/* <input type="submit" value="Submit" /> */}
         </form>
         <Budget handler={this.submitBudget} income={this.state.income} />
         <PurchaseLog handler={this.submitPurchase} />
