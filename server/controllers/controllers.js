@@ -2,8 +2,9 @@ var {
   getExpenses,
   getBudgets,
   createExpense,
-  createBudget
-} = require('../models/models.js');
+  createBudget,
+  getTotalExpenses
+} = require("../models/models.js");
 
 module.exports = {
   budget: {
@@ -42,6 +43,15 @@ module.exports = {
       createExpense(log)
         .then(() => {
           res.sendStatus(201);
+        })
+        .catch(err => {
+          res.sendStatus(500);
+        });
+    },
+    getTotal: (eq, res) => {
+      getTotalExpenses()
+        .then(result => {
+          res.send(result);
         })
         .catch(err => {
           res.sendStatus(500);
