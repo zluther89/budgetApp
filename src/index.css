@@ -21,3 +21,32 @@ svg {
   display: block;
   margin: auto;
 }
+
+.budget {
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
+
+.income {
+  font-weight: bold;
+}
+
+.purchase {
+  margin-top: 1em;
+  font-weight: bold;
+  margin-bottom: .5em;
+}
+
+.expenses {
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
+
+.tableHeader {
+  margin:auto
+}
+
+#chart {
+  margin-top: 3em;
+  margin-bottom: 1em;
+}

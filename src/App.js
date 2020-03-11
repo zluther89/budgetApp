@@ -1,11 +1,11 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import axios from "axios";
-import Budget from "./Budget.js";
-import PurchaseLog from "./PurchaseLog.js";
-import Axios from "axios";
-import PurchaseDataTable from "./PurchaseDataTable";
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import axios from 'axios';
+import Budget from './Budget.js';
+import PurchaseLog from './PurchaseLog.js';
+import Axios from 'axios';
+import PurchaseDataTable from './PurchaseDataTable';
 
 class App extends React.Component {
   constructor(props) {
@@ -57,15 +57,15 @@ class App extends React.Component {
 
   //gets an array of the purchase history
   getPurchasesArr() {
-    return Axios.get("/log");
+    return Axios.get('/log');
   }
   //get request for total purchases
   getPurchasesTotal() {
-    return Axios.get("/log/expenses");
+    return Axios.get('/log/expenses');
   }
   //get request for budget
   getBudget() {
-    return Axios.get("/budget");
+    return Axios.get('/budget');
   }
 
   // Axios.get('/budget').then(data => console.log('test'));
@@ -97,19 +97,21 @@ class App extends React.Component {
 
   //post budget to server
   postBudget(budget) {
-    return axios.post("/budget", budget);
+    return axios.post('/budget', budget);
   }
   //posts purchase log to server
   postPurchase(purchase) {
-    return axios.post("/log", purchase);
+    return axios.post('/log', purchase);
   }
 
   render() {
     return (
       <div className="App">
         <form onSubmit={this.handleSubmit}>
-          <label>
+          <br></br>
+          <label className="income">
             Income
+            <br></br>
             <input
               type="number"
               value={this.state.value}
