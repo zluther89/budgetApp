@@ -75,7 +75,12 @@ class Budget extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        <button onClick={event => this.props.handler(event, this.state)}>
+        <button
+          onClick={event => {
+            this.props.handler(event, this.state);
+            this.props.render(event);
+          }}
+        >
           Calculate and Submit Budget
         </button>
       </div>
