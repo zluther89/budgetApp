@@ -1,10 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
-import Budget from './Budget.js';
-import PurchaseLog from './PurchaseLog.js';
-import Axios from 'axios';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import axios from "axios";
+import Budget from "./Budget.js";
+import PurchaseLog from "./PurchaseLog.js";
+import Axios from "axios";
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.getPurchasesTotal().then(res => {
-      if (res.data[0].amount) {
+      if (res.data.amount) {
         this.setState({ totalPurchases: res.data[0].amount });
         console.log(this.state);
       }
@@ -35,11 +35,11 @@ class App extends React.Component {
     );
   }
   getPurchasesArr() {
-    return Axios.get('/log');
+    return Axios.get("/log");
   }
   //get request for total purchases
   getPurchasesTotal() {
-    return Axios.get('/log/expenses');
+    return Axios.get("/log/expenses");
   }
 
   // Axios.get('/budget').then(data => console.log('test'));
@@ -49,7 +49,7 @@ class App extends React.Component {
 
   //submit button for purchases on purchaselog component
   submitPurchase(event, purchaseObj) {
-    event.preventDefault();
+    //event.preventDefault();
     //note need to chain a get request onto this after submitting purchase to recieve updated total purchases
     this.postPurchase(purchaseObj)
       .then(res => console.log(res))
@@ -69,11 +69,11 @@ class App extends React.Component {
 
   //post budget to server
   postBudget(budget) {
-    return axios.post('/budget', budget);
+    return axios.post("/budget", budget);
   }
   //posts purchase log to server
   postPurchase(purchase) {
-    return axios.post('/log', purchase);
+    return axios.post("/log", purchase);
   }
 
   render() {
