@@ -4,7 +4,7 @@ var {
   createExpense,
   createBudget,
   getTotalExpenses
-} = require("../models/models.js");
+} = require('../models/models.js');
 
 module.exports = {
   budget: {
