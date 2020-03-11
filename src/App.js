@@ -4,17 +4,40 @@ import "./App.css";
 import axios from "axios";
 import Budget from "./Budget.js";
 import PurchaseLog from "./PurchaseLog.js";
+import Axios from "axios";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      income: 0
+      income: 0,
+      budget: 0,
+      totalPurchases: 0,
+      moneyLeft: 0,
+      expensesArray: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.postPurchase = this.postPurchase.bind(this);
     this.submitPurchase = this.submitPurchase.bind(this);
     this.submitBudget = this.submitBudget.bind(this);
+    this.getPurchasesTotal = this.getPurchasesTotal.bind(this);
+    this.getPurchasesArr = this.getPurchasesArr.bind(this);
+  }
+  componentDidMount() {
+    this.getPurchasesTotal().then(res => {
+      this.setState({ totalPurchases: res.data[0].amount });
+      console.log(this.state);
+    });
+    this.getPurchasesArr().then(res =>
+      this.setState({ expensesArray: res.data })
+    );
+  }
+  getPurchasesArr() {
+    return Axios.get("/log");
+  }
+  //get request for total purchases
+  getPurchasesTotal() {
+    return Axios.get("/log/expenses");
   }
 
   // Axios.get('/budget').then(data => console.log('test'));

@@ -7,11 +7,12 @@ class PurchaseLog extends React.Component {
     this.state = {
       name: "",
       price: 0,
-      date: ""
+      date: Date.now(),
+      category: ""
     };
     this.handleChange = this.handleChange.bind(this);
   }
-
+  //handles change to input form
   handleChange(e, stateProp) {
     let value = e.target.value;
     if (stateProp === "price") {
@@ -21,6 +22,10 @@ class PurchaseLog extends React.Component {
     stateObj[stateProp] = value;
     this.setState(stateObj);
     console.log(this.state);
+  }
+  //handles change to drop down select element
+  handleSelect(event) {
+    this.setState({ category: event.target.value });
   }
 
   render() {
@@ -37,10 +42,18 @@ class PurchaseLog extends React.Component {
             onChange={event => this.handleChange(event, "price")}
           ></input>
           <br />
-          <label>Date</label>
-          <input
-            onChange={event => this.handleChange(event, "date")}
-          ></input>{" "}
+          <label for="category">Purchase category</label>
+          <select
+            onChange={e => this.handleSelect(e)}
+            id="category"
+            name="category"
+          >
+            <option value="restaurant/bar">restaurant/bar</option>
+            <option value="groceries">groceries</option>
+            <option value="transportation">transportation</option>
+            <option value="recreation">recreation</option>
+            <option value="other">other</option>
+          </select>
           <br />
           <button onClick={event => this.props.handler(event, this.state)}>
             Submit Purchase
