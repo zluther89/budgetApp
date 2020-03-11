@@ -4,6 +4,11 @@ function PurchaseDataTable(props) {
   return (
     <div>
       <table className="expenses">
+        <tr>
+          <th COLSPAN="4" className="tableHeader">
+            Expense Log
+          </th>
+        </tr>
         <tbody>
           <tr>
             <th>category</th>

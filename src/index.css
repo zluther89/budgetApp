@@ -24,6 +24,7 @@ svg {
 
 .budget {
   margin-top: 1em;
+  margin-bottom: .5em;
 }
 
 .income {
@@ -33,12 +34,19 @@ svg {
 .purchase {
   margin-top: 1em;
   font-weight: bold;
+  margin-bottom: .5em;
 }
 
 .expenses {
   margin-top: 1em;
+  margin-bottom: .5em;
+}
+
+.tableHeader {
+  margin:auto
 }
 
 #chart {
   margin-top: 3em;
+  margin-bottom: 1em;
 }
