@@ -5,6 +5,7 @@ import axios from "axios";
 import Budget from "./Budget.js";
 import PurchaseLog from "./PurchaseLog.js";
 import Axios from "axios";
+import PurchaseDataTable from "./PurchaseDataTable";
 
 class App extends React.Component {
   constructor(props) {
@@ -92,6 +93,7 @@ class App extends React.Component {
         </form>
         <Budget handler={this.submitBudget} income={this.state.income} />
         <PurchaseLog handler={this.submitPurchase} />
+        <PurchaseDataTable expenses={this.state.expensesArray} />
       </div>
     );
   }
