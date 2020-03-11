@@ -1,29 +1,40 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import Axios from "axios";
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Axios from 'axios';
+import Budget from './Budget.js';
 
-function App() {
-  Axios.get("/budget").then(data => console.log("test"));
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      income: 0
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  // Axios.get('/budget').then(data => console.log('test'));
+  handleChange(event) {
+    this.setState({ income: event.target.value });
+  }
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload. hello
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  render() {
+    return (
+      <div className="App">
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Income
+            <input
+              type="number"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        <Budget />
+      </div>
+    );
+  }
 }
 
 export default App;
