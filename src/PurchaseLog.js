@@ -42,7 +42,7 @@ class PurchaseLog extends React.Component {
             onChange={event => this.handleChange(event, "date")}
           ></input>{" "}
           <br />
-          <button onClick={() => this.props.handler(this.state)}>
+          <button onClick={event => this.props.handler(event, this.state)}>
             Submit Purchase
           </button>
         </form>
