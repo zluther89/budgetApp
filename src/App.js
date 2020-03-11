@@ -34,7 +34,6 @@ class App extends React.Component {
     //gets the sum of all purchases made, then
     //gets the budget obj from db, computesr total budget, then
     //subtracts total purchases from budget to computer money leftover
-
     this.getPurchasesTotal()
       .then(res => {
         console.log(res.data.length);
