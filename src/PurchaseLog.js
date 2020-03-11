@@ -12,31 +12,42 @@ class PurchaseLog extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  postPurchase(purchase) {
-    axios
-      .post("/log")
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-  }
-
   handleChange(e, stateProp) {
+    let value = e.target.value;
+    if (stateProp === "price") {
+      value = Number(value);
+    }
     let stateObj = {};
-    stateObj[stateProp] = e.target.value;
+    stateObj[stateProp] = value;
     this.setState(stateObj);
+    console.log(this.state);
   }
 
   render() {
-    <form>
-      <label>Purchase name</label>
-      <input onChange={this.handleChange(event, "name")}></input>
-      <label>Cost of purchase</label>
-      <input onChange={this.handleChange(event, "price")}></input>
-      <label>date</label>
-      <input onChange={this.handleChange(event, "date")}></input>
-      <button onClick={() => this.postPurchase(this.state)}>
-        Submit Purchase
-      </button>
-    </form>;
+    return (
+      <div>
+        <div>Purchase log</div>
+        <form>
+          <label>Purchase name</label>
+          <input onChange={event => this.handleChange(event, "name")}></input>
+          <br />
+          <label>Cost of purchase</label>
+          <input
+            type="number"
+            onChange={event => this.handleChange(event, "price")}
+          ></input>
+          <br />
+          <label>Date</label>
+          <input
+            onChange={event => this.handleChange(event, "date")}
+          ></input>{" "}
+          <br />
+          <button onClick={event => this.props.handler(event, this.state)}>
+            Submit Purchase
+          </button>
+        </form>
+      </div>
+    );
   }
 }
 

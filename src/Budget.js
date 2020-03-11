@@ -1,15 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Axios from 'axios';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Axios from "axios";
 
 class Budget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       storage: [],
-      name: '',
-      amount: ''
+      name: "",
+      amount: "",
+      total: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleBudgetSubmit = this.handleBudgetSubmit.bind(this);
@@ -17,6 +18,7 @@ class Budget extends React.Component {
 
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value });
+    console.log(this.state);
   }
 
   // need to move to app
@@ -26,9 +28,12 @@ class Budget extends React.Component {
       name: this.state.name,
       amount: this.state.amount
     };
+    let total = this.state.total + Number(this.state.amount);
+    this.setState({ total: total });
     let tempStorage = this.state.storage.slice();
     tempStorage.push(budgetEntry);
     this.setState({ storage: tempStorage });
+    this.state.storage.forEach(entry => (total += entry.amount));
   }
 
   render() {
@@ -70,6 +75,9 @@ class Budget extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
+        <button onClick={event => this.props.handler(event, this.state)}>
+          Calculate and Submit Budget
+        </button>
       </div>
     );
   }
