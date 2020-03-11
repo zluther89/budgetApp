@@ -15,7 +15,10 @@ class App extends React.Component {
       budgetTotal: 0,
       totalPurchases: 0,
       moneyLeft: 0,
-      expensesArray: []
+      expensesArray: [],
+      renderIncomeForm: true,
+      renderBillForm: false,
+      renderPurchaseLogForm: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.postPurchase = this.postPurchase.bind(this);
@@ -23,6 +26,8 @@ class App extends React.Component {
     this.submitBudget = this.submitBudget.bind(this);
     this.getPurchasesTotal = this.getPurchasesTotal.bind(this);
     this.getPurchasesArr = this.getPurchasesArr.bind(this);
+    this.toggleIncomeForm = this.toggleIncomeForm.bind(this);
+    this.toggleBillForm = this.toggleBillForm.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +45,7 @@ class App extends React.Component {
       .then(() => {
         this.getBudget()
           .then(res => {
+            console.log("budget response", res);
             let computeedBudget = res.data[0].income - res.data[0].bills;
             this.setState({ budgetTotal: computeedBudget });
           })
@@ -95,6 +101,21 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
+  /// A few functions that toggle components based on button clicks //
+  toggleIncomeForm(event) {
+    event.preventDefault();
+    this.setState({ renderIncomeForm: false });
+    this.setState({ renderBillForm: true });
+  }
+
+  toggleBillForm(event) {
+    event.preventDefault();
+    this.setState({ renderBillForm: false });
+    this.setState({ renderPurchaseLogForm: true });
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+
   //post budget to server
   postBudget(budget) {
     return axios.post('/budget', budget);
@@ -107,21 +128,34 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleSubmit}>
-          <br></br>
-          <label className="income">
-            Income
-            <br></br>
-            <input
-              type="number"
-              value={this.state.value}
-              onChange={event => this.handleChange(event)}
-            />
-          </label>
-          {/* <input type="submit" value="Submit" /> */}
-        </form>
-        <Budget handler={this.submitBudget} income={this.state.income} />
-        <PurchaseLog handler={this.submitPurchase} />
+
+        {this.state.renderIncomeForm ? (
+          <form>
+            <label>
+              Income
+              <input
+                type="number"
+                value={this.state.value}
+                onChange={event => this.handleChange(event)}
+              />
+            </label>
+            <button onClick={this.toggleIncomeForm}>Submit Income</button>
+          </form>
+        ) : null}
+        {this.state.renderBillForm ? (
+          <Budget
+            render={this.toggleBillForm}
+            handler={this.submitBudget}
+            income={this.state.income}
+          />
+        ) : null}
+        {this.state.renderPurchaseLogForm ? (
+          <PurchaseLog
+            render={this.togglePurchaseLogForm}
+            handler={this.submitPurchase}
+          />
+        ) : null}
+
         <PurchaseDataTable expenses={this.state.expensesArray} />
       </div>
     );
