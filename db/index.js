@@ -17,7 +17,7 @@ const logSchema = new Schema({
   category: String,
   name: String,
   price: Number,
-  date: Date
+  date: String
 });
 
 const Log = mongoose.model('log', logSchema);

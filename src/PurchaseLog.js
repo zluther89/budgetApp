@@ -8,7 +8,7 @@ class PurchaseLog extends React.Component {
     this.state = {
       name: '',
       price: 0,
-      date: Date.now(),
+      date: moment().format('MMM Do YY'),
       category: 'restaurants/bars'
     };
     this.handleChange = this.handleChange.bind(this);
@@ -32,7 +32,7 @@ class PurchaseLog extends React.Component {
 
   render() {
     return (
-      <div className="box">
+      <div className="column is-half">
         <div className="title">Purchase Log</div>
         <form>
           <label className="label">{'Name:  '}</label>

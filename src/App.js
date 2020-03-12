@@ -200,15 +200,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="column is-half">
+      <div className="column">
         <h1 className="title">Frugal.ly</h1>
         {this.state.renderIncomeForm ? (
-          <form className="form">
+          <form className="form column is-half">
             <label className="label">
               <div className="title">Total Income: </div>
               <br></br>
               <input
-                className="input"
+                className="input column is-half"
                 type="number"
                 value={this.state.value}
                 onChange={event => this.handleChange(event)}
@@ -235,7 +235,7 @@ class App extends React.Component {
               render={this.togglePurchaseLogForm}
               handler={this.submitPurchase}
             />
-            <div className="box">
+            <div className="box column is-half">
               <div className="label">
                 Monthly budget after bills: ${this.state.budgetTotal}
               </div>
@@ -251,7 +251,6 @@ class App extends React.Component {
             </button>
           </div>
         ) : null}
-
         <PurchaseDataTable expenses={this.state.expensesArray} />
         <button
           className="button is-primary"
@@ -259,7 +258,8 @@ class App extends React.Component {
         >
           Delete Purchase History
         </button>
-        <D3 />
+        <h1 className="title">Spending Chart</h1>
+        <div className="column" id="chart"></div>
       </div>
     );
   }

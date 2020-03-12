@@ -1,5 +1,5 @@
 axios
-  .get('/log')
+  .get('/log/categories')
   .then(response => {
     let dataset = [];
     response.data.map(entry => {
@@ -18,10 +18,10 @@ axios
 let pieGraph = function(d3, dataset) {
   'use strict';
 
-  var width = 360;
-  var height = 360;
+  var width = 500;
+  var height = 500;
   var radius = Math.min(width, height) / 2;
-  var donutWidth = 75;
+  var donutWidth = 100;
   var legendRectSize = 18; // NEW
   var legendSpacing = 4; // NEW
   var color = d3.scaleOrdinal(d3.schemePastel1);

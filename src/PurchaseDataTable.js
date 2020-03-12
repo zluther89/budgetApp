@@ -2,7 +2,7 @@ import React from 'react';
 
 function PurchaseDataTable(props) {
   return (
-    <div className="box">
+    <div className="column is-half">
       <table className="table">
         <tr>
           <th COLSPAN="4" className="tableHeader">
