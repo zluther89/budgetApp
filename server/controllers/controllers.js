@@ -3,8 +3,9 @@ var {
   getBudgets,
   createExpense,
   createBudget,
-  getTotalExpenses
-} = require('../models/models.js');
+  getTotalExpenses,
+  deleteBudget
+} = require("../models/models.js");
 
 module.exports = {
   budget: {
@@ -22,6 +23,16 @@ module.exports = {
       createBudget(budget)
         .then(() => {
           res.sendStatus(201);
+        })
+        .catch(err => {
+          res.sendStatus(500);
+        });
+    },
+
+    delete: (req, res) => {
+      deleteBudget()
+        .then(result => {
+          res.send(result);
         })
         .catch(err => {
           res.sendStatus(500);

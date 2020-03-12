@@ -29,6 +29,10 @@ module.exports = {
     return newExpense.save();
   },
 
+  deleteBudget: () => {
+    return Budget.deleteMany({});
+  },
+
   // creates a new budget document
   createBudget: budget => {
     let newBudget = new Budget(budget);
