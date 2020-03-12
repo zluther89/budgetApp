@@ -33,6 +33,10 @@ module.exports = {
     return Budget.deleteMany({});
   },
 
+  deleteLog: ()=>{
+    return Log.deleteMany({})
+  }
+
   // creates a new budget document
   createBudget: budget => {
     let newBudget = new Budget(budget);
