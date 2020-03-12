@@ -11,4 +11,8 @@ router.post("/budget", controller.budget.post);
 
 router.post("/log", controller.log.post);
 
+router.delete("/budget", controller.budget.delete);
+
+router.delete("/log", controller.log.delete);
+
 module.exports = router;

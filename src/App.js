@@ -30,6 +30,10 @@ class App extends React.Component {
     this.toggleBillForm = this.toggleBillForm.bind(this);
     this.getBudget = this.getBudget.bind(this);
     this.calculateBudget = this.calculateBudget.bind(this);
+    this.deleteBudgetButton = this.deleteBudgetButton.bind(this);
+    this.deleteLogs = this.deleteLogs.bind(this);
+    this.deleteLogsButton = this.deleteLogsButton.bind(this);
+    //this.deleteLogsButton = this.deleteLogsButton.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +53,7 @@ class App extends React.Component {
       this.setState({ expensesArray: res.data })
     );
   }
+
 
   //gets an array of the purchase history
   getPurchasesArr() {
@@ -93,8 +98,6 @@ class App extends React.Component {
 
   //submit button for purchases on purchaselog component
   submitPurchase(event, purchaseObj) {
-    //event.preventDefault();
-    //note need to chain a get request onto this after submitting purchase to recieve updated total purchases
     this.postPurchase(purchaseObj)
       .then(res => console.log(res))
       .catch(err => console.log(err));
@@ -111,6 +114,65 @@ class App extends React.Component {
       .then(this.calculateBudget)
       .catch(err => console.log(err));
   }
+
+  //gets an array of the purchase history
+  getPurchasesArr() {
+    return Axios.get("/log");
+  }
+
+  //get request for total purchases
+  getPurchasesTotal() {
+    return Axios.get("/log/expenses");
+  }
+  //get request for budget
+  getBudget() {
+    return Axios.get("/budget");
+  }
+
+  //deletes budget
+  deleteBudget() {
+    return Axios.delete("/budget");
+  }
+
+  deleteLogs() {
+    return Axios.delete("/log");
+  }
+
+  postBudget(budget) {
+    return axios.post("/budget", budget);
+  }
+  //posts purchase log to server
+  postPurchase(purchase) {
+    return axios.post("/log", purchase);
+  }
+
+  ///Delete button handlers
+
+  deleteBudgetButton(event) {
+    event.preventDefault();
+    this.deleteBudget()
+      .then(this.calculateBudget())
+      .then(() => {
+        this.setState({
+          renderIncomeForm: true,
+          renderBillForm: false,
+          renderPurchaseLogForm: false
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
+  deleteLogsButton(event) {
+    this.deleteLogs().then(this.calculateBudget());
+    window.location.reload();
+  }
+
+  // deleteLogsButton(event) {
+  //   event.preventDefault();
+  //   this.deleteLogs()
+  //     .then(this.calculateBudget)
+  //     .catch(err => console.log(err));
+  // }
 
   /// A few functions that toggle components based on button clicks //
   toggleIncomeForm(event) {
@@ -135,6 +197,7 @@ class App extends React.Component {
   postPurchase(purchase) {
     return axios.post('/log', purchase);
   }
+
 
   render() {
     return (
@@ -169,14 +232,17 @@ class App extends React.Component {
               render={this.togglePurchaseLogForm}
               handler={this.submitPurchase}
             />
-            <div id="remainder">
-              <div>Monthly budget after bills: ${this.state.budgetTotal}</div>
-              <div>Remaining funds: ${this.state.moneyLeft}</div>
-            </div>
+
+            <div>Monthly budget after bills: {this.state.budgetTotal}</div>
+            <div>Remaining funds: {this.state.moneyLeft}</div>
+            <button onClick={this.deleteBudgetButton}>Reset Budget</button>
           </div>
         ) : null}
 
         <PurchaseDataTable expenses={this.state.expensesArray} />
+        <button onClick={event => this.deleteLogsButton(event)}>
+          Delete Purchase History
+        </button>
       </div>
     );
   }
