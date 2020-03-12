@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import moment from 'moment';
 
 class PurchaseLog extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class PurchaseLog extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="box">
         <div className="title">Purchase Log</div>
         <form>
           <label className="label">{'Name:  '}</label>
@@ -50,21 +51,23 @@ class PurchaseLog extends React.Component {
           <label className="label" for="category">
             Category:{' '}
           </label>
-          <select
-            className="select"
-            onChange={e => this.handleSelect(e)}
-            id="category"
-            name="category"
-          >
-            <option value="restaurants/bars">Restaurants/Bars</option>
-            <option value="groceries">Groceries</option>
-            <option value="transportation">Transportation</option>
-            <option value="recreation">Recreation</option>
-            <option value="other">Other</option>
-          </select>
+          <div className="select is-primary">
+            <select
+              className="select is-multiple"
+              onChange={e => this.handleSelect(e)}
+              id="category"
+              name="category"
+            >
+              <option value="restaurants/bars">Restaurants/Bars</option>
+              <option value="groceries">Groceries</option>
+              <option value="transportation">Transportation</option>
+              <option value="recreation">Recreation</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
           <br />
           <button
-            className="button"
+            className="button is-primary"
             onClick={event => this.props.handler(event, this.state)}
           >
             Submit Purchase

@@ -37,7 +37,7 @@ class Budget extends React.Component {
 
   render() {
     return (
-      <div className="budget">
+      <div className="box">
         <table className="table" align="center">
           <tr>
             <th className="th" className="title" colSpan="2">
@@ -46,13 +46,13 @@ class Budget extends React.Component {
           </tr>
           <tr>
             <th className="th">Bill</th>
-            <th className="th">Amount</th>
+            <th className="th">Amount($)</th>
           </tr>
           {this.state.storage.map(budgetItem => {
             return (
               <tr>
                 <td> {budgetItem.name} </td>
-                <td> {budgetItem.amount}</td>
+                <td> ${budgetItem.amount}</td>
               </tr>
             );
           })}
@@ -72,7 +72,7 @@ class Budget extends React.Component {
           <label className="label">
             Amount
             <input
-              className="input  "
+              className="input"
               type="number"
               id="amount"
               value={this.state.value}
@@ -85,7 +85,7 @@ class Budget extends React.Component {
           Note: Please add all bills one at a time before calculating budget
         </div>
         <button
-          className="button"
+          className="button is-primary"
           onClick={event => {
             this.props.handler(event, this.state);
             this.props.render(event);

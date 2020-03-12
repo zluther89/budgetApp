@@ -2,7 +2,7 @@ import React from 'react';
 
 function PurchaseDataTable(props) {
   return (
-    <div>
+    <div className="box">
       <table className="table">
         <tr>
           <th COLSPAN="4" className="tableHeader">
@@ -22,7 +22,7 @@ function PurchaseDataTable(props) {
               <tr>
                 <td>{purchase.category}</td>
                 <td>{purchase.name}</td>
-                <td>{purchase.price}</td>
+                <td>${purchase.price}</td>
                 <td>{purchase.date}</td>
               </tr>
             );
