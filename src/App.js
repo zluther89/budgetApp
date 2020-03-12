@@ -137,7 +137,8 @@ class App extends React.Component {
         {this.state.renderIncomeForm ? (
           <form>
             <label>
-              Income
+              <div>Total Income: </div>
+              <br></br>
               <input
                 type="number"
                 value={this.state.value}
@@ -155,10 +156,14 @@ class App extends React.Component {
           />
         ) : null}
         {this.state.renderPurchaseLogForm ? (
-          <PurchaseLog
-            render={this.togglePurchaseLogForm}
-            handler={this.submitPurchase}
-          />
+          <div>
+            <PurchaseLog
+              render={this.togglePurchaseLogForm}
+              handler={this.submitPurchase}
+            />
+            <div>Monthly budget after bills: {this.state.budgetTotal}</div>
+            <div>Remaining funds: {this.state.moneyLeft}</div>
+          </div>
         ) : null}
 
         <PurchaseDataTable expenses={this.state.expensesArray} />
