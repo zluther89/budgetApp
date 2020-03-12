@@ -46,6 +46,11 @@ svg {
   margin:auto
 }
 
+#container {
+  display: flex;
+  direction: ltr;
+}
+
 #chart {
   margin-top: 3em;
   margin-bottom: 1em;
