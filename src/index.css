@@ -12,7 +12,24 @@ code {
     monospace;
 }
 
+form {
+  text-align: right;
+  width: 50%;
+  margin-left: 8em;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+td {
+  text-align: right;    
+}
+input {
+  margin-left:1em;
+}
 table {
+  border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
 }
@@ -46,6 +63,13 @@ svg {
   margin:auto
 }
 
+#remainder {
+  margin-top: 1em;
+  text-align: right;
+  width: 80%;
+
+}
+
 #container {
   display: flex;
   direction: ltr;
@@ -55,8 +79,4 @@ svg {
 #chart {
   margin-top: 3em;
   margin-bottom: 1em;
-}
-
-#center {
-  justify-content: center;
 }

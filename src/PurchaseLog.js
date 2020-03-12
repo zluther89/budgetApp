@@ -34,26 +34,26 @@ class PurchaseLog extends React.Component {
       <div>
         <div className="purchase">Purchase Log</div>
         <form>
-          <label>Name</label>
+          <label>{'Name:  '}</label>
           <input onChange={event => this.handleChange(event, 'name')}></input>
           <br />
-          <label>Cost</label>
+          <label>Cost: </label>
           <input
             type="number"
             onChange={event => this.handleChange(event, 'price')}
           ></input>
           <br />
-          <label for="category">Category</label>
+          <label for="category">Category: </label>
           <select
             onChange={e => this.handleSelect(e)}
             id="category"
             name="category"
           >
-            <option value="restaurants/bars">restaurants/bars</option>
-            <option value="groceries">groceries</option>
-            <option value="transportation">transportation</option>
-            <option value="recreation">recreation</option>
-            <option value="other">other</option>
+            <option value="restaurants/bars">Restaurants/Bars</option>
+            <option value="groceries">Groceries</option>
+            <option value="transportation">Transportation</option>
+            <option value="recreation">Recreation</option>
+            <option value="other">Other</option>
           </select>
           <br />
           <button onClick={event => this.props.handler(event, this.state)}>

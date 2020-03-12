@@ -1,11 +1,11 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import axios from "axios";
-import Budget from "./Budget.js";
-import PurchaseLog from "./PurchaseLog.js";
-import Axios from "axios";
-import PurchaseDataTable from "./PurchaseDataTable";
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import axios from 'axios';
+import Budget from './Budget.js';
+import PurchaseLog from './PurchaseLog.js';
+import Axios from 'axios';
+import PurchaseDataTable from './PurchaseDataTable';
 
 class App extends React.Component {
   constructor(props) {
@@ -52,23 +52,23 @@ class App extends React.Component {
 
   //gets an array of the purchase history
   getPurchasesArr() {
-    return Axios.get("/log");
+    return Axios.get('/log');
   }
 
   //get request for total purchases
   getPurchasesTotal() {
-    return Axios.get("/log/expenses");
+    return Axios.get('/log/expenses');
   }
   //get request for budget
   getBudget() {
-    return Axios.get("/budget");
+    return Axios.get('/budget');
   }
 
   //gets budget props, calculates, and sets state with new budget calcs
   calculateBudget() {
     this.getBudget()
       .then(res => {
-        console.log("budget response", res);
+        console.log('budget response', res);
         if (res.data.length > 0) {
           this.setState({
             renderIncomeForm: false,
@@ -129,11 +129,11 @@ class App extends React.Component {
 
   //post budget to server
   postBudget(budget) {
-    return axios.post("/budget", budget);
+    return axios.post('/budget', budget);
   }
   //posts purchase log to server
   postPurchase(purchase) {
-    return axios.post("/log", purchase);
+    return axios.post('/log', purchase);
   }
 
   render() {
@@ -166,8 +166,10 @@ class App extends React.Component {
               render={this.togglePurchaseLogForm}
               handler={this.submitPurchase}
             />
-            <div>Monthly budget after bills: {this.state.budgetTotal}</div>
-            <div>Remaining funds: {this.state.moneyLeft}</div>
+            <div id="remainder">
+              <div>Monthly budget after bills: {this.state.budgetTotal}</div>
+              <div>Remaining funds: {this.state.moneyLeft}</div>
+            </div>
           </div>
         ) : null}
 
