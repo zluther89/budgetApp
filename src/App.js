@@ -30,6 +30,7 @@ class App extends React.Component {
     this.toggleBillForm = this.toggleBillForm.bind(this);
     this.getBudget = this.getBudget.bind(this);
     this.calculateBudget = this.calculateBudget.bind(this);
+    this.deleteButton = this.deleteButton.bind(this);
   }
 
   componentDidMount() {
@@ -112,6 +113,24 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
+  //deletes budget
+  deleteBudget() {
+    return Axios.delete("/budget");
+  }
+
+  deleteButton(event) {
+    event.preventDefault();
+    this.deleteBudget()
+      .then(this.calculateBudget())
+      .then(() => {
+        this.setState({
+          renderIncomeForm: true,
+          renderBillForm: false,
+          renderPurchaseLogForm: false
+        });
+      });
+  }
+
   /// A few functions that toggle components based on button clicks //
   toggleIncomeForm(event) {
     event.preventDefault();
@@ -168,6 +187,7 @@ class App extends React.Component {
             />
             <div>Monthly budget after bills: {this.state.budgetTotal}</div>
             <div>Remaining funds: {this.state.moneyLeft}</div>
+            <button onClick={this.deleteButton}>Reset Budget</button>
           </div>
         ) : null}
 

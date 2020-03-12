@@ -18,7 +18,6 @@ class Budget extends React.Component {
 
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value });
-    console.log(this.state);
   }
 
   // need to move to app
