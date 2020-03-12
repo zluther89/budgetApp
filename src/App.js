@@ -148,8 +148,8 @@ class App extends React.Component {
   }
 
   deleteLogsButton(event) {
-    event.preventDefault();
-    this.deleteLogs().then();
+    this.deleteLogs().then(this.calculateBudget());
+    window.location.reload();
   }
 
   // deleteLogsButton(event) {
@@ -213,7 +213,9 @@ class App extends React.Component {
         ) : null}
 
         <PurchaseDataTable expenses={this.state.expensesArray} />
-        <button onClick={this.deleteLogsButton}>Delete Purchase History</button>
+        <button onClick={event => this.deleteLogsButton(event)}>
+          Delete Purchase History
+        </button>
       </div>
     );
   }
