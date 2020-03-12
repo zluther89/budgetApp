@@ -7,6 +7,8 @@ router.get("/log", controller.log.get);
 
 router.get("/log/expenses", controller.log.getTotal);
 
+router.get("/log/categories", controller.log.getTotalFromEachCategory);
+
 router.post("/budget", controller.budget.post);
 
 router.post("/log", controller.log.post);

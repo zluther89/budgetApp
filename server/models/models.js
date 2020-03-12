@@ -13,6 +13,18 @@ module.exports = {
     ]);
   },
 
+  //works for one cat only
+  // getTotalFromAllCategories: () => {
+  //   return Log.aggregate([
+  //     { $match: { category: "recreation" } },
+  //     { $group: { _id: null, amount: { $sum: "$price" } } }
+  //   ]);
+  // },
+
+  // category: String,
+  // name: String,
+  // price: Number,
+  // date: Date
   ///////////////////////////////////////////////
   //     ADD GET TOTAL FROM CATEGORY FUNC      //
   //////////////////////////////////////////////
