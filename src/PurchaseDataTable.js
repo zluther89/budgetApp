@@ -3,7 +3,7 @@ import React from 'react';
 function PurchaseDataTable(props) {
   return (
     <div>
-      <table className="expenses">
+      <table className="table">
         <tr>
           <th COLSPAN="4" className="tableHeader">
             Expense Log

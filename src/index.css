@@ -29,6 +29,11 @@ table, th, td {
   border: 1px solid black;
 }
 
+h1 {
+  text-align:center;
+  font-size: 40px;
+}
+
 td {
   text-align: right;   
   padding: 5px; 

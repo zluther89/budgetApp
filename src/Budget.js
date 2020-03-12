@@ -39,15 +39,15 @@ class Budget extends React.Component {
   render() {
     return (
       <div className="budget">
-        <table align="center">
+        <table className="table" align="center">
           <tr>
-            <th className="title" colSpan="2">
+            <th className="th" className="title" colSpan="2">
               Monthly Bills
             </th>
           </tr>
           <tr>
-            <th>Bill</th>
-            <th>Amount</th>
+            <th className="th">Bill</th>
+            <th className="th">Amount</th>
           </tr>
           {this.state.storage.map(budgetItem => {
             return (
@@ -58,10 +58,11 @@ class Budget extends React.Component {
             );
           })}
         </table>
-        <form onSubmit={this.handleBudgetSubmit}>
-          <label>
+        <form className="form" onSubmit={this.handleBudgetSubmit}>
+          <label className="label">
             Bill
             <input
+              className="input"
               type="text"
               id="name"
               value={this.state.value}
@@ -69,21 +70,23 @@ class Budget extends React.Component {
             />
           </label>
           <br></br>
-          <label>
+          <label className="label">
             Amount
             <input
+              className="input  "
               type="number"
               id="amount"
               value={this.state.value}
               onChange={this.handleChange}
             />
           </label>
-          <input type="submit" value="Submit" />
+          <input className="input" type="submit" value="Submit" />
         </form>
         <div>
           Note: Please add all bills one at a time before calculating budget
         </div>
         <button
+          className="button"
           onClick={event => {
             this.props.handler(event, this.state);
             this.props.render(event);

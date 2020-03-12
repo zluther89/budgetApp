@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import axios from 'axios';
 import Budget from './Budget.js';
 import PurchaseLog from './PurchaseLog.js';
@@ -140,17 +140,20 @@ class App extends React.Component {
     return (
       <div className="App">
         {this.state.renderIncomeForm ? (
-          <form>
-            <label>
+          <form className="form">
+            <label className="label">
               <div className="title">Total Income: </div>
               <br></br>
               <input
+                className="input"
                 type="number"
                 value={this.state.value}
                 onChange={event => this.handleChange(event)}
               />
             </label>
-            <button onClick={this.toggleIncomeForm}>Submit Income</button>
+            <button className="button" onClick={this.toggleIncomeForm}>
+              Submit Income
+            </button>
           </form>
         ) : null}
         {this.state.renderBillForm ? (
