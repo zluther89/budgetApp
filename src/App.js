@@ -1,11 +1,14 @@
 import React from "react";
 import logo from "./logo.svg";
 // import './App.css';
-import axios from "axios";
-import Budget from "./Budget.js";
-import PurchaseLog from "./PurchaseLog.js";
-import Axios from "axios";
-import PurchaseDataTable from "./PurchaseDataTable";
+
+import axios from 'axios';
+import Budget from './Budget.js';
+import PurchaseLog from './PurchaseLog.js';
+import Axios from 'axios';
+import PurchaseDataTable from './PurchaseDataTable';
+import D3 from './d3';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -116,33 +119,33 @@ class App extends React.Component {
 
   //gets an array of the purchase history
   getPurchasesArr() {
-    return Axios.get("/log");
+    return Axios.get('/log');
   }
 
   //get request for total purchases
   getPurchasesTotal() {
-    return Axios.get("/log/expenses");
+    return Axios.get('/log/expenses');
   }
   //get request for budget
   getBudget() {
-    return Axios.get("/budget");
+    return Axios.get('/budget');
   }
 
   //deletes budget
   deleteBudget() {
-    return Axios.delete("/budget");
+    return Axios.delete('/budget');
   }
 
   deleteLogs() {
-    return Axios.delete("/log");
+    return Axios.delete('/log');
   }
 
   postBudget(budget) {
-    return axios.post("/budget", budget);
+    return axios.post('/budget', budget);
   }
   //posts purchase log to server
   postPurchase(purchase) {
-    return axios.post("/log", purchase);
+    return axios.post('/log', purchase);
   }
 
   ///Delete button handlers
@@ -199,20 +202,24 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="column">
+        <h1 className="title">Frugal.ly</h1>
         {this.state.renderIncomeForm ? (
-          <form className="form">
+          <form className="form column is-half">
             <label className="label">
               <div className="title">Total Income: </div>
               <br></br>
               <input
-                className="input"
+                className="input column is-half"
                 type="number"
                 value={this.state.value}
                 onChange={event => this.handleChange(event)}
               />
             </label>
-            <button className="button" onClick={this.toggleIncomeForm}>
+            <button
+              className="button is-primary"
+              onClick={this.toggleIncomeForm}
+            >
               Submit Income
             </button>
           </form>
@@ -230,17 +237,31 @@ class App extends React.Component {
               render={this.togglePurchaseLogForm}
               handler={this.submitPurchase}
             />
-
-            <div>Monthly budget after bills: {this.state.budgetTotal}</div>
-            <div>Remaining funds: {this.state.moneyLeft}</div>
-            <button onClick={this.deleteBudgetButton}>Reset Budget</button>
+            <div className="box column is-half">
+              <div className="label">
+                Monthly budget after bills: ${this.state.budgetTotal}
+              </div>
+              <div className="label">
+                Remaining funds: ${this.state.moneyLeft}
+              </div>
+            </div>
+            <button
+              className="button is-primary"
+              onClick={this.deleteBudgetButton}
+            >
+              Reset Budget
+            </button>
           </div>
         ) : null}
-
         <PurchaseDataTable expenses={this.state.expensesArray} />
-        <button onClick={event => this.deleteLogsButton(event)}>
+        <button
+          className="button is-primary"
+          onClick={event => this.deleteLogsButton(event)}
+        >
           Delete Purchase History
         </button>
+        <h1 className="title">Spending Chart</h1>
+        <div className="column" id="chart"></div>
       </div>
     );
   }
