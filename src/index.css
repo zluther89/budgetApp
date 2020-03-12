@@ -12,7 +12,38 @@ code {
     monospace;
 }
 
+form {
+  text-align: right;
+  width: 50%;
+  margin-left: 8em;
+}
+
+.title {
+  margin-top: 2em;
+  text-align: center;
+  font-weight: bold;  
+  font-size: 20px;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+h1 {
+  text-align:center;
+  font-size: 40px;
+}
+
+td {
+  text-align: right;   
+  padding: 5px; 
+}
+input {
+  margin-left:1em;
+  font-size: 20px;
+}
 table {
+  border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
 }
@@ -46,9 +77,17 @@ svg {
   margin:auto
 }
 
+#remainder {
+  margin-top: 1em;
+  text-align: right;
+  width: 80%;
+
+}
+
 #container {
   display: flex;
   direction: ltr;
+  justify-content: center;
 }
 
 #chart {

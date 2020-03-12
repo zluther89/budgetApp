@@ -1,11 +1,11 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import axios from "axios";
-import Budget from "./Budget.js";
-import PurchaseLog from "./PurchaseLog.js";
-import Axios from "axios";
-import PurchaseDataTable from "./PurchaseDataTable";
+import React from 'react';
+import logo from './logo.svg';
+// import './App.css';
+import axios from 'axios';
+import Budget from './Budget.js';
+import PurchaseLog from './PurchaseLog.js';
+import Axios from 'axios';
+import PurchaseDataTable from './PurchaseDataTable';
 
 class App extends React.Component {
   constructor(props) {
@@ -54,11 +54,26 @@ class App extends React.Component {
     );
   }
 
+
+  //gets an array of the purchase history
+  getPurchasesArr() {
+    return Axios.get('/log');
+  }
+
+  //get request for total purchases
+  getPurchasesTotal() {
+    return Axios.get('/log/expenses');
+  }
+  //get request for budget
+  getBudget() {
+    return Axios.get('/budget');
+  }
+
   //gets budget props, calculates, and sets state with new budget calcs
   calculateBudget() {
     this.getBudget()
       .then(res => {
-        console.log("budget response", res);
+        console.log('budget response', res);
         if (res.data.length > 0) {
           this.setState({
             renderIncomeForm: false,
@@ -175,22 +190,33 @@ class App extends React.Component {
   ///////////////////////////////////////////////////////////////////////////
 
   //post budget to server
+  postBudget(budget) {
+    return axios.post('/budget', budget);
+  }
+  //posts purchase log to server
+  postPurchase(purchase) {
+    return axios.post('/log', purchase);
+  }
+
 
   render() {
     return (
       <div className="App">
         {this.state.renderIncomeForm ? (
-          <form>
-            <label>
-              <div>Total Income: </div>
+          <form className="form">
+            <label className="label">
+              <div className="title">Total Income: </div>
               <br></br>
               <input
+                className="input"
                 type="number"
                 value={this.state.value}
                 onChange={event => this.handleChange(event)}
               />
             </label>
-            <button onClick={this.toggleIncomeForm}>Submit Income</button>
+            <button className="button" onClick={this.toggleIncomeForm}>
+              Submit Income
+            </button>
           </form>
         ) : null}
         {this.state.renderBillForm ? (
@@ -206,6 +232,7 @@ class App extends React.Component {
               render={this.togglePurchaseLogForm}
               handler={this.submitPurchase}
             />
+
             <div>Monthly budget after bills: {this.state.budgetTotal}</div>
             <div>Remaining funds: {this.state.moneyLeft}</div>
             <button onClick={this.deleteBudgetButton}>Reset Budget</button>

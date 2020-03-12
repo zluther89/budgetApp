@@ -3,7 +3,7 @@ import React from 'react';
 function PurchaseDataTable(props) {
   return (
     <div>
-      <table className="expenses">
+      <table className="table">
         <tr>
           <th COLSPAN="4" className="tableHeader">
             Expense Log
@@ -11,10 +11,10 @@ function PurchaseDataTable(props) {
         </tr>
         <tbody>
           <tr>
-            <th>category</th>
-            <th>name</th>
-            <th>price</th>
-            <th>date</th>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Date</th>
           </tr>
 
           {props.expenses.map(purchase => {
