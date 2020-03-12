@@ -31,6 +31,8 @@ class App extends React.Component {
     this.getBudget = this.getBudget.bind(this);
     this.calculateBudget = this.calculateBudget.bind(this);
     this.deleteBudgetButton = this.deleteBudgetButton.bind(this);
+    this.deleteLogs = this.deleteLogs.bind(this);
+    this.deleteLogsButton = this.deleteLogsButton.bind(this);
     //this.deleteLogsButton = this.deleteLogsButton.bind(this);
   }
 
@@ -145,6 +147,11 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
+  deleteLogsButton(event) {
+    event.preventDefault();
+    this.deleteLogs().then();
+  }
+
   // deleteLogsButton(event) {
   //   event.preventDefault();
   //   this.deleteLogs()
@@ -206,7 +213,7 @@ class App extends React.Component {
         ) : null}
 
         <PurchaseDataTable expenses={this.state.expensesArray} />
-        {/* <button onClick={this.deleteLogsButton}>Delete Purchase History</button> */}
+        <button onClick={this.deleteLogsButton}>Delete Purchase History</button>
       </div>
     );
   }
