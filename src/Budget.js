@@ -1,15 +1,15 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import Axios from "axios";
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Axios from 'axios';
 
 class Budget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       storage: [],
-      name: "",
-      amount: "",
+      name: '',
+      amount: '',
       total: 0
     };
     this.handleChange = this.handleChange.bind(this);
@@ -41,7 +41,13 @@ class Budget extends React.Component {
       <div className="budget">
         <table align="center">
           <tr>
-            <th>Please add monthly bills</th>
+            <th className="title" colSpan="2">
+              Monthly Bills
+            </th>
+          </tr>
+          <tr>
+            <th>Bill</th>
+            <th>Amount</th>
           </tr>
           {this.state.storage.map(budgetItem => {
             return (
