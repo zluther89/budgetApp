@@ -49,9 +49,14 @@ svg {
 #container {
   display: flex;
   direction: ltr;
+  justify-content: center;
 }
 
 #chart {
   margin-top: 3em;
   margin-bottom: 1em;
+}
+
+#center {
+  justify-content: center;
 }
