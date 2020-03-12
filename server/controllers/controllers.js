@@ -4,7 +4,8 @@ var {
   createExpense,
   createBudget,
   getTotalExpenses,
-  deleteBudget
+  deleteBudget,
+  deleteLogs
 } = require("../models/models.js");
 
 module.exports = {
@@ -61,6 +62,15 @@ module.exports = {
     },
     getTotal: (eq, res) => {
       getTotalExpenses()
+        .then(result => {
+          res.send(result);
+        })
+        .catch(err => {
+          res.sendStatus(500);
+        });
+    },
+    delete: (req, res) => {
+      deleteLogs()
         .then(result => {
           res.send(result);
         })
