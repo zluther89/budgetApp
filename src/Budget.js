@@ -1,15 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Axios from 'axios';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Axios from "axios";
 
 class Budget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       storage: [],
-      name: '',
-      amount: '',
+      name: "",
+      amount: "",
       total: 0
     };
     this.handleChange = this.handleChange.bind(this);
@@ -41,8 +41,7 @@ class Budget extends React.Component {
       <div className="budget">
         <table align="center">
           <tr>
-            <th>Budget Item</th>
-            <th>Amount</th>
+            <th>Please add monthly bills</th>
           </tr>
           {this.state.storage.map(budgetItem => {
             return (
@@ -55,7 +54,7 @@ class Budget extends React.Component {
         </table>
         <form onSubmit={this.handleBudgetSubmit}>
           <label>
-            Item
+            Bill
             <input
               type="text"
               id="name"
@@ -75,13 +74,16 @@ class Budget extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
+        <div>
+          Note: Please add all bills one at a time before calculating budget
+        </div>
         <button
           onClick={event => {
             this.props.handler(event, this.state);
             this.props.render(event);
           }}
         >
-          Calculate and Submit Budget
+          Calculate Budget
         </button>
       </div>
     );
