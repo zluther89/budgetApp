@@ -32,7 +32,7 @@ class PurchaseLog extends React.Component {
 
   render() {
     return (
-      <div className="column is-half">
+      <div className="box">
         <div className="title">Purchase Log</div>
         <form>
           <label className="label">{'Name:  '}</label>

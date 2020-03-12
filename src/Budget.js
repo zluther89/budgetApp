@@ -37,7 +37,7 @@ class Budget extends React.Component {
 
   render() {
     return (
-      <div className="box column is-half">
+      <div className="box">
         <table className="table" align="center">
           <tr>
             <th className="th" className="title" colSpan="2">
@@ -61,7 +61,7 @@ class Budget extends React.Component {
           <label className="label">
             Bill
             <input
-              className="input column is-half"
+              className="input"
               type="text"
               id="name"
               value={this.state.value}
@@ -72,7 +72,7 @@ class Budget extends React.Component {
           <label className="label">
             Amount
             <input
-              className="input column is-half"
+              className="input"
               type="number"
               id="amount"
               value={this.state.value}

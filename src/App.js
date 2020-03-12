@@ -1,5 +1,5 @@
-import React from "react";
-import logo from "./logo.svg";
+import React from 'react';
+import logo from './logo.svg';
 // import './App.css';
 
 import axios from 'axios';
@@ -8,7 +8,6 @@ import PurchaseLog from './PurchaseLog.js';
 import Axios from 'axios';
 import PurchaseDataTable from './PurchaseDataTable';
 import D3 from './d3';
-
 
 class App extends React.Component {
   constructor(props) {
@@ -59,23 +58,23 @@ class App extends React.Component {
 
   //gets an array of the purchase history
   getPurchasesArr() {
-    return Axios.get("/log");
+    return Axios.get('/log');
   }
 
   //get request for total purchases
   getPurchasesTotal() {
-    return Axios.get("/log/expenses");
+    return Axios.get('/log/expenses');
   }
   //get request for budget
   getBudget() {
-    return Axios.get("/budget");
+    return Axios.get('/budget');
   }
 
   //gets budget props, calculates, and sets state with new budget calcs
   calculateBudget() {
     this.getBudget()
       .then(res => {
-        console.log("budget response", res);
+        console.log('budget response', res);
         if (res.data.length > 0) {
           this.setState({
             renderIncomeForm: false,
@@ -193,75 +192,80 @@ class App extends React.Component {
 
   //post budget to server
   postBudget(budget) {
-    return axios.post("/budget", budget);
+    return axios.post('/budget', budget);
   }
   //posts purchase log to server
   postPurchase(purchase) {
-    return axios.post("/log", purchase);
+    return axios.post('/log', purchase);
   }
 
   render() {
     return (
-      <div className="column">
-        <h1 className="title">Frugal.ly</h1>
-        {this.state.renderIncomeForm ? (
-          <form className="form column is-half">
-            <label className="label">
-              <div className="title">Total Income: </div>
-              <br></br>
-              <input
-                className="input column is-half"
-                type="number"
-                value={this.state.value}
-                onChange={event => this.handleChange(event)}
-              />
-            </label>
-            <button
-              className="button is-primary"
-              onClick={this.toggleIncomeForm}
-            >
-              Submit Income
-            </button>
-          </form>
-        ) : null}
-        {this.state.renderBillForm ? (
-          <Budget
-            render={this.toggleBillForm}
-            handler={this.submitBudget}
-            income={this.state.income}
-          />
-        ) : null}
-        {this.state.renderPurchaseLogForm ? (
-          <div>
-            <PurchaseLog
-              render={this.togglePurchaseLogForm}
-              handler={this.submitPurchase}
+      <div className="columns">
+        <div className="column">
+          <h1 className="title">Frugal.ly</h1>
+          {this.state.renderIncomeForm ? (
+            <form className="form">
+              <label className="label">
+                <div className="title">Total Income: </div>
+                <br></br>
+                <input
+                  className="input"
+                  type="number"
+                  value={this.state.value}
+                  onChange={event => this.handleChange(event)}
+                />
+              </label>
+              <button
+                className="button is-primary"
+                onClick={this.toggleIncomeForm}
+              >
+                Submit Income
+              </button>
+            </form>
+          ) : null}
+          {this.state.renderBillForm ? (
+            <Budget
+              render={this.toggleBillForm}
+              handler={this.submitBudget}
+              income={this.state.income}
             />
-            <div className="box column is-half">
-              <div className="label">
-                Monthly budget after bills: ${this.state.budgetTotal}
+          ) : null}
+          {this.state.renderPurchaseLogForm ? (
+            <div>
+              <PurchaseLog
+                render={this.togglePurchaseLogForm}
+                handler={this.submitPurchase}
+              />
+              <div className="box">
+                <div className="label">
+                  Monthly budget after bills: ${this.state.budgetTotal}
+                </div>
+                <div className="label">
+                  Remaining funds: ${this.state.moneyLeft}
+                </div>
               </div>
-              <div className="label">
-                Remaining funds: ${this.state.moneyLeft}
-              </div>
+              <button
+                className="button is-primary"
+                onClick={this.deleteBudgetButton}
+              >
+                Reset Budget
+              </button>
             </div>
-            <button
-              className="button is-primary"
-              onClick={this.deleteBudgetButton}
-            >
-              Reset Budget
-            </button>
-          </div>
-        ) : null}
-        <PurchaseDataTable expenses={this.state.expensesArray} />
-        <button
-          className="button is-primary"
-          onClick={event => this.deleteLogsButton(event)}
-        >
-          Delete Purchase History
-        </button>
-        <h1 className="title">Spending Chart</h1>
-        <div className="column" id="chart"></div>
+          ) : null}
+          <PurchaseDataTable expenses={this.state.expensesArray} />
+          <button
+            className="button is-primary"
+            onClick={event => this.deleteLogsButton(event)}
+          >
+            Delete Purchase History
+          </button>
+        </div>
+
+        <div className="column">
+          <h1 className="title">Spending Chart</h1>
+          <div id="chart"></div>
+        </div>
       </div>
     );
   }
