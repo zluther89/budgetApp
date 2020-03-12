@@ -28,6 +28,8 @@ class App extends React.Component {
     this.getPurchasesArr = this.getPurchasesArr.bind(this);
     this.toggleIncomeForm = this.toggleIncomeForm.bind(this);
     this.toggleBillForm = this.toggleBillForm.bind(this);
+    this.getBudget = this.getBudget.bind(this);
+    this.calculateBudget = this.calculateBudget.bind(this);
   }
 
   componentDidMount() {
@@ -41,26 +43,7 @@ class App extends React.Component {
           this.setState({ totalPurchases: res.data[0].amount });
         }
       })
-      .then(() => {
-        this.getBudget()
-          .then(res => {
-            console.log("budget response", res);
-            if (res.data.length > 0) {
-              this.setState({
-                renderIncomeForm: false,
-                renderBillForm: false,
-                renderPurchaseLogForm: true
-              });
-              let computeedBudget = res.data[0].income - res.data[0].bills;
-              this.setState({ budgetTotal: computeedBudget });
-            }
-          })
-          .then(() => {
-            let moneyLeft = this.state.budgetTotal - this.state.totalPurchases;
-            this.setState({ moneyLeft: moneyLeft });
-            console.log(this.state);
-          });
-      });
+      .then(this.calculateBudget); //here;
 
     this.getPurchasesArr().then(res =>
       this.setState({ expensesArray: res.data })
@@ -71,6 +54,7 @@ class App extends React.Component {
   getPurchasesArr() {
     return Axios.get("/log");
   }
+
   //get request for total purchases
   getPurchasesTotal() {
     return Axios.get("/log/expenses");
@@ -80,10 +64,30 @@ class App extends React.Component {
     return Axios.get("/budget");
   }
 
-  // Axios.get('/budget').then(data => console.log('test'));
+  //gets budget props, calculates, and sets state with new budget calcs
+  calculateBudget() {
+    this.getBudget()
+      .then(res => {
+        console.log("budget response", res);
+        if (res.data.length > 0) {
+          this.setState({
+            renderIncomeForm: false,
+            renderBillForm: false,
+            renderPurchaseLogForm: true
+          });
+          let computeedBudget = res.data[0].income - res.data[0].bills;
+          this.setState({ budgetTotal: computeedBudget });
+        }
+      })
+      .then(() => {
+        let moneyLeft = this.state.budgetTotal - this.state.totalPurchases;
+        this.setState({ moneyLeft: moneyLeft });
+        console.log(this.state);
+      });
+  }
+
   handleChange(event) {
     event.preventDefault();
-    console.log(event.target.value);
     this.setState({ income: event.target.value });
   }
 
@@ -104,6 +108,7 @@ class App extends React.Component {
     budgetObj.bills = state.total;
     this.postBudget(budgetObj)
       .then(res => console.log(res))
+      .then(this.calculateBudget)
       .catch(err => console.log(err));
   }
 
