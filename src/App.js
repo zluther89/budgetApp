@@ -57,7 +57,7 @@ class App extends React.Component {
   }
 
   //gets an array of the purchase history
-  getPurchasesArr() {
+  getPurchasesArr () {
     return Axios.get('/log');
   }
 
