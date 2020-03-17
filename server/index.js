@@ -13,7 +13,7 @@ app.use(parser.json());
 
 app.use("/", router);
 
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../build")));
 //SET UP ROUTER
 
 // Routes
