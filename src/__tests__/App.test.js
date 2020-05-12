@@ -8,17 +8,18 @@
 //   expect(linkElement).toBeInTheDocument();
 // });
 
-const mongoose = require('mongoose');
-const { Budget, Log, db } = require('../../db');
+const mongoose = require("mongoose");
+const { Budget, Log } = require("../../db");
+const { getBudgets } = require("../../server/models/models.js");
 const budgetData = { income: 1000, bills: 300, savings: 0 };
 const logData = {
-  category: 'transportation',
-  name: 'subway',
+  category: "transportation",
+  name: "subway",
   price: 30,
-  date: '05-14-2020',
+  date: "05-14-2020",
 };
 
-describe('Budget Model Test', () => {
+describe("Budget Model Test", () => {
   // It's just so easy to connect to the MongoDB Memory Server
   // By using mongoose.connect
   beforeAll(async () => {
@@ -34,7 +35,11 @@ describe('Budget Model Test', () => {
     );
   });
 
-  it('create & save budget successfully', async () => {
+  afterEach(async () => {
+    await Budget.deleteMany({});
+  });
+
+  it("create & save budget successfully", async () => {
     const validBudget = new Budget(budgetData);
     const savedBudget = await validBudget.save();
     // Object Id should be defined when successfully saved to MongoDB.
@@ -43,14 +48,29 @@ describe('Budget Model Test', () => {
     expect(savedBudget.savings).toBe(0);
   });
 
-  it('create & save logs successfully', async () => {
+  it("create & save logs successfully", async () => {
     const validLog = new Log(logData);
     const savedLog = await validLog.save();
     // Object Id should be defined when successfully saved to MongoDB.
-    expect(savedLog.category).toBe('transportation');
-    expect(savedLog.name).toBe('subway');
+    expect(savedLog.category).toBe("transportation");
+    expect(savedLog.name).toBe("subway");
     expect(savedLog.price).toBe(30);
-    expect(savedLog.date).toBe('05-14-2020');
+    expect(savedLog.date).toBe("05-14-2020");
+  });
+
+  it("retrieves the budget info from the database", async () => {
+    const validBudget = new Budget(budgetData);
+    const savedBudget = await validBudget.save();
+    const [pulledBudget] = await getBudgets();
+
+    expect(pulledBudget).toBeTruthy();
+    expect(pulledBudget.income).toBe(1000);
+    expect(pulledBudget.bills).toBe(300);
+  });
+
+  it("calculates the budget", async () => {
+    const validBudget = new Budget(budgetData);
+    const savedBudget = await validBudget.save();
   });
 
   // Test Schema is working!!!
