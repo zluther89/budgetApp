@@ -22,7 +22,7 @@
   "scripts": {
     "react": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "server": "node './server/index.js'",
     "start": "run-p build react server"
@@ -41,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
+    "jest": "^26.0.1"
   }
 }
